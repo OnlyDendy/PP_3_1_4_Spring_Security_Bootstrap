@@ -45,11 +45,20 @@
 
 <!--    </form>-->
 <!--</div>-->
-<div th:insert="~{Logout::header}">
+<!--<div class="pb-4 mb bg-dark text-white align-text-bottom">-->
+<div class="alert bg-dark text-white"  role="alert">
+    <strong>
+    <td th:text="${user.email}"></td>
+</strong>
+    <th> with roles:</th>
+    <th th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></th>
+    <th th:insert="~{Logout::header}"></th>
 </div>
+<p class="h1"> User information-page</p>
+
 <table class="table table-striped">
     <thead>
-    <tr>
+    <tr class="text-center">
         <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -59,7 +68,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr class="text-center">
         <td th:text="${user.id}"></td>
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
