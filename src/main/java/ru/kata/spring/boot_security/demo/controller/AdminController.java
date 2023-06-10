@@ -14,7 +14,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
@@ -26,7 +25,7 @@ public class AdminController {
     }
 
     @GetMapping
-    public String toUsers(){
+    public String toUsers() {
         return "admin";
     }
 
@@ -39,13 +38,9 @@ public class AdminController {
 
     @GetMapping("/users/{id}")
     public String findById(Model model, @PathVariable Long id) {
+        model.addAttribute("user", userService.findById(id));
         model.addAttribute("allRoles", roleService.findAll());
-        return userService.findById(id)
-                .map(user -> {
-                    model.addAttribute("user", user);
-                    return "user";
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return "user";
     }
 
     @PostMapping("/users")
@@ -57,20 +52,14 @@ public class AdminController {
 
     @DeleteMapping("/users/{id}")
     public String delete(@PathVariable Long id) {
-        if (!userService.removeById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        userService.removeById(id);
         return "redirect:/admin/users";
     }
 
     @PutMapping("/users/{id}")
     public String update(User user, String rawPassword) {
-        if(rawPassword.length() > 0) {
-            user.setPassword(passwordEncoder.encode(rawPassword));
-        }
-        if (!userService.update(user)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        userService.update(user);
         return "redirect:/admin/users";
     }
 }

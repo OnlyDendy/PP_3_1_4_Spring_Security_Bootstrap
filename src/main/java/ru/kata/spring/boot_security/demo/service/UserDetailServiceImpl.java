@@ -18,9 +18,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserAndFetchRoles(username)
-                .orElseThrow(()-> new UsernameNotFoundException("Username [" + username +
+    public UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException {
+        return userRepository.findUserAndFetchRoles(firstName)
+                .orElseThrow(()-> new UsernameNotFoundException("firstName [" + firstName +
                                                                 "] не найден в БД"));
     }
 }

@@ -3,71 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"
+    >
 </head>
 <body>
-<div th:insert="~{fragment::header}"></div>
-    <div>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>Пароль</th>
-                <th>Роли</th>
-                <th>Действие</th>
-            </tr>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td><span>********</span></td>
+<div th:insert="~{Logout::header}"></div>
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+            <td>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
+                </ul>
+                <form th:action="@{/admin/users/{id}(id=${user.id})}" style="display: inline-block">
+                    <button type="submit">Edit</button>
+                </form>
+                <form th:action="@{/admin/users/{id}(id=${user.id})}" th:method="delete" style="display: inline-block">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <form th:action="@{/admin/users}" method="post">
                 <td>
-                    <ul>
-                        <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
-                    </ul>
+                    # <input type="hidden" name="id">
                 </td>
                 <td>
-                    <form th:action="@{/admin/users/{id}(id=${user.id})}" style="display: inline-block">
-                        <button type="submit">Редактировать</button>
-                    </form>
-                    <form th:action="@{/admin/users/{id}(id=${user.id})}" th:method="delete" style="display: inline-block">
-                        <button type="submit">Удалить</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <form th:action="@{/admin/users}" method="post">
-                    <td>
-                        # <input type="hidden" name="id">
-                    </td>
-                    <td>
-                        <input type="text" name="userName">
-                    </td>
-                    <td>
+                    <label>
                         <input type="text" name="firstName">
-                    </td>
-                    <td>
+                    </label>
+                </td>
+                <td>
+                    <label>
                         <input type="text" name="lastName">
-                    </td>
-                    <td>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="age">
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <input type="text" name="email">
+                    </label>
+                </td>
+                <td>
+                    <label>
                         <input type="password" name="rawPassword">
-                    </td>
-                    <td>
-                        <div th:each="role: ${allRoles}">
+                    </label>
+                </td>
+                <td>
+                    <div th:each="role: ${allRoles}">
+                        <label>
                             <input type="checkbox" th:id="${role.value}"
                                    name="roles"  th:value="${role.id}">
-                            <label th:for="${role.value}" th:text="${role.value}"></label>
-                        </div>
-                    </td>
-                    <td>
-                        <button type="submit">Добавить</button>
-                    </td>
-                </form>
-            </tr>
-        </table>
-    </div>
+                        </label>
+                        <label th:for="${role.value}" th:text="${role.value}"></label>
+                    </div>
+                </td>
+                <td>
+                    <button type="submit">Add new user</button>
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
-

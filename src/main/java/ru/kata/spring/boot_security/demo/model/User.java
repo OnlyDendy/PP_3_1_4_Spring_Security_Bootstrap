@@ -17,11 +17,15 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String userName;
-
     private String firstName;
 
+//    private String firstName;
+
     private String lastName;
+
+    private int age;
+
+    private String email;
 
     private String password;
 
@@ -35,10 +39,12 @@ public class User implements UserDetails {
 
     }
 
-    public User(String userName, String firstName, String lastName, String password) {
-        this.userName = userName;
+    public User(String firstName/*, String firstName*/, String lastName, int age, String email, String password) {
         this.firstName = firstName;
+//        this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
+        this.email = email;
         this.password = password;
     }
 
@@ -49,7 +55,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userName;
+        return firstName;
     }
 
     @Override
@@ -77,19 +83,19 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(userName, user.userName);
+        return Objects.equals(firstName, user.firstName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName);
+        return Objects.hash(firstName);
     }
 
     @Override
     public String toString() {
         return "User{" +
                "id=" + id +
-               ", userName='" + userName + '\'' +
+//               ", userName='" + firstName + '\'' +
                ", firstName='" + firstName + '\'' +
                ", lastName='" + lastName + '\'' +
                '}';
@@ -111,13 +117,13 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+//    public String getUserName() {
+//        return userName;
+//    }
+//
+//    public void setUserName(String userName) {
+//        this.userName = userName;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -149,5 +155,21 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

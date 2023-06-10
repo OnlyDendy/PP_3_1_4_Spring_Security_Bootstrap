@@ -1,68 +1,78 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>User Page</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+    >
 </head>
 <body>
+<!--<div sec:authorize="hasAuthority('ROLE_ADMIN')">-->
+<!--    <form th:action="@{/admin/users/{id}(id=${user.id})}" th:method="put" th:object="${user}">-->
+<!--        <label for="id" th:text="|ID: *{id}|">-->
+<!--            <input type="hidden" id="id" th:value="*{id}">-->
+<!--        </label>-->
+<!--        <br><br>-->
+<!--        <label for="firstName">First Name:-->
+<!--            <input type="text" id="firstName" name="firstName" th:value="*{firstName}">-->
+<!--        </label>-->
+<!--        <br><br>-->
 
-    <div th:insert="~{fragment::header}">
-    </div>
+<!--        <label for="lastName">Last Name:-->
+<!--            <input type="text" id="lastName" name="lastName" th:value="*{lastName}">-->
+<!--        </label>-->
+<!--        <br><br>-->
 
-    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
-        <form th:action="@{/admin/users/{id}(id=${user.id})}" th:method="put" th:object="${user}">
-            <label for="id" th:text="|ID: *{id}|">
-                <input type="hidden" id="id" th:value="*{id}">
-            </label>
-            <br><br>
+<!--        <label for="age">Age:-->
+<!--            <input type="text" id="age" name="age" th:value="*{age}">-->
+<!--        </label>-->
+<!--        <br><br>-->
 
-            <label for="userName">Username:
-                <input type="text" id="userName" name="userName" th:value="*{userName}">
-            </label>
-            <br><br>
+<!--        <label for="email">Email:-->
+<!--            <input type="text" id="email" name="email" th:value="*{email}">-->
+<!--        </label>-->
+<!--        <br><br>-->
 
-            <label for="firstName">First Name:
-                <input type="text" id="firstName" name="firstName" th:value="*{firstName}">
-            </label>
-            <br><br>
+<!--        <div th:each="role : ${allRoles}">-->
+<!--            <input type="checkbox" th:id="${role.value}"-->
+<!--                   name="roles" th:value="${role.id}"-->
+<!--                   th:checked="${#sets.contains(user.roles, role)}">-->
+<!--            <label th:for="${role.value}" th:text="${role.value}"></label>-->
+<!--        </div>-->
 
-            <label for="lastName">First Name:
-                <input type="text" id="lastName" name="lastName" th:value="*{lastName}">
-            </label>
-            <br><br>
-
-            <div th:each="role : ${allRoles}">
-                <input type="checkbox" th:id="${role.value}"
-                       name="roles"  th:value="${role.id}"
-                       th:checked="${#sets.contains(user.roles, role)}">
-                <label th:for="${role.value}" th:text="${role.value}"></label>
-            </div>
-            <br>
-
-            <label for="rawPassword"> New password:
-                <input type="hidden" name="password" th:value="*{password}">
-                <input type="password" id="rawPassword" name="rawPassword">
-            </label>
-            <br><br>
-
-            <button type="submit">Записать</button>
-        </form>
-        <br>
-
-        <button onclick="window.location.href = '/admin/users';">Список пользователей</button>
-    </div>
-
-    <div sec:authorize="!hasAuthority('ROLE_ADMIN')" th:object="${user}">
-        <p th:text="|ID: *{id}|"></p>
-        <p th:text="|Username: *{userName}|"></p>
-        <p th:text="|Имя: *{firstName}|"></p>
-        <p th:text="|Фамилия: *{lastName}|"></p>
-        <p>Роли:</p>
-        <ul>
-            <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
-        </ul>
-    </div>
-
+<!--    </form>-->
+<!--</div>-->
+<div th:insert="~{Logout::header}">
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <ul>
+                <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
 

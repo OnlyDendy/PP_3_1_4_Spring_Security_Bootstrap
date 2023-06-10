@@ -28,15 +28,15 @@ public class InitDB {
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
 
-        User admin = new User("admin", "Антон", "Шорин", passwordEncoder.encode("admin"));
+        User admin = new User( "Anton", "Шорин", 31, "ant@gmail.com", passwordEncoder.encode("1"));
         admin.addRole(roleService.add(roleAdmin));
         userService.add(admin);
 
-        User user = new User("user", "Ольга", "Шорина", passwordEncoder.encode("user"));
+        User user = new User( "Olga", "Шорина",31, "Olga@gmail.com", passwordEncoder.encode("2"));
         user.addRole(roleService.add(roleUser));
         userService.add(user);
 
-        User userAdmin = new User("superadmin", "Кирилл", "Шорин", passwordEncoder.encode("superadmin"));
+        User userAdmin = new User( "Kirill", "Шорин",1, "Ki@gmail.com", passwordEncoder.encode("3"));
         userAdmin.addRole(roleService.add(roleUser));
         userAdmin.addRole(roleService.add(roleAdmin));
         userService.add(userAdmin);
