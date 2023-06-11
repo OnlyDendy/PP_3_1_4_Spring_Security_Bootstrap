@@ -10,78 +10,86 @@
     >
 </head>
 <body>
-<!--<div sec:authorize="hasAuthority('ROLE_ADMIN')">-->
-<!--    <form th:action="@{/admin/users/{id}(id=${user.id})}" th:method="put" th:object="${user}">-->
-<!--        <label for="id" th:text="|ID: *{id}|">-->
-<!--            <input type="hidden" id="id" th:value="*{id}">-->
-<!--        </label>-->
-<!--        <br><br>-->
-<!--        <label for="firstName">First Name:-->
-<!--            <input type="text" id="firstName" name="firstName" th:value="*{firstName}">-->
-<!--        </label>-->
-<!--        <br><br>-->
 
-<!--        <label for="lastName">Last Name:-->
-<!--            <input type="text" id="lastName" name="lastName" th:value="*{lastName}">-->
-<!--        </label>-->
-<!--        <br><br>-->
-
-<!--        <label for="age">Age:-->
-<!--            <input type="text" id="age" name="age" th:value="*{age}">-->
-<!--        </label>-->
-<!--        <br><br>-->
-
-<!--        <label for="email">Email:-->
-<!--            <input type="text" id="email" name="email" th:value="*{email}">-->
-<!--        </label>-->
-<!--        <br><br>-->
-
-<!--        <div th:each="role : ${allRoles}">-->
-<!--            <input type="checkbox" th:id="${role.value}"-->
-<!--                   name="roles" th:value="${role.id}"-->
-<!--                   th:checked="${#sets.contains(user.roles, role)}">-->
-<!--            <label th:for="${role.value}" th:text="${role.value}"></label>-->
-<!--        </div>-->
-
-<!--    </form>-->
-<!--</div>-->
-<!--<div class="pb-4 mb bg-dark text-white align-text-bottom">-->
-<div class="alert bg-dark text-white"  role="alert">
+<!--Логаут и чёрная полоска-->
+<div class="alert bg-dark text-white" role="alert">
     <strong>
-    <td th:text="${user.email}"></td>
-</strong>
+        <td th:text="${user.email}"></td>
+    </strong>
     <th> with roles:</th>
     <th th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></th>
     <th th:insert="~{Logout::header}"></th>
-</div>
-<p class="h1"> User information-page</p>
 
-<table class="table table-striped">
-    <thead>
-    <tr class="text-center">
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Age</th>
-        <th>Email</th>
-        <th>Role</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="text-center">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.email}"></td>
-        <td>
-            <ul>
-                <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
-            </ul>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <!--Кнопка User-->
+</div>
+<div style="position:fixed; top:63px;">
+    <button type="button" class="btn btn-primary text-left" style="width: 210px">User</button>
+</div>
+
+    <!--    Лейблы-->
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 210px;
+     top: 50px;
+     width: 2000px;
+     height: 2000px;
+     background-color: #F8F9FA">
+</div>
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 240px;
+     top: 122px;
+     width: 1000px;
+     height: 50px;
+     background-color: #F7F7F7">
+        <p class="h5"> About user</p>
+</div>
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 240px;
+     top: 170px;
+     width: 1000px;
+     height: 150px;
+     background-color: #FFFFFF">
+</div>
+
+<div style="position: fixed;left: 240px;top: 60px">
+    <p class="h1"> User information-page</p>
+</div>
+
+<!--Таблица-->
+<div style="position: fixed;
+    left: 260px;
+    top: 190px;
+    width: 960px;
+    height: 40px;">
+    <table class="table table-striped">
+        <thead>
+        <tr class="text-center">
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
 

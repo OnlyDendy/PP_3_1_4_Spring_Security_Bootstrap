@@ -6,17 +6,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
     >
 </head>
 <body>
-  <div th:insert="~{Logout::header}">
-  </div>
-  <br>
-
-  <button onclick="window.location.href = '/user';">Профиль</button>
-  <br>
-  <button class="btn btn-success" onclick="window.location.href = '/admin/users';">Список пользователей</button>
+<!--Логаут и чёрная полоска-->
+<div class="alert bg-dark text-white" role="alert">
+    <strong>
+        <td th:text="${user.email}"></td>
+    </strong>
+    <th> with roles:</th>
+    <th th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></th>
+    <th th:insert="~{Logout::header}"></th>
+</div>
+<!--Кнопка User-->
+<div style="position:fixed; top:63px;">
+    <button type="button" class="btn btn-primary text-left" style="width: 210px">Admin</button>
+</div>
+<div style="position:fixed; top:103px;">
+    <button type="button" class="btn btn-link text-left" style="width: 210px">User</button>
+</div>
+<!--    Лейблы-->
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 210px;
+     top: 50px;
+     width: 2000px;
+     height: 2000px;
+     background-color: #F8F9FA">
+</div>
+<div style="position: fixed;left: 240px;top: 60px">
+    <p class="h1">Admin panel</p>
+</div>
+<div style="position: fixed;left: 240px;top: 122px">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#!">User table</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" onclick="window.location.href = '/admin'">New User</a>
+        </li>
+    </ul>
+</div>
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 240px;
+     top: 160px;
+     width: 1000px;
+     height: 50px;
+     background-color: #F7F7F7">
+    <p class="h5">All users</p>
+</div>
+<!--Белая-->
+<div class="alert alert-secondary" role="alert"
+     style="position: fixed;
+     left: 240px;
+     top: 208px;
+     width: 1000px;
+     height: 270px;
+     background-color: #FFFFFF">
+</div>
+<!----------------------------------------------------------------------------->
+<div>
+    <table class="table table-striped" style="position: fixed;
+    left: 260px;
+    top: 230px;
+    width: 960px;">
+        <tr class="text-center">
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        <tr class="text-center"
+            th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.age}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <ul>
+                    <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
+                </ul>
+                <!--                <form th:action="@{/admin/{id}(id=${user.id})}" style="display: inline-block">-->
+                <!--                    <button type="submit">Edit</button>-->
+                <!--                </form>-->
+                <!--                <form th:action="@{/admin/{id}(id=${user.id})}" th:method="delete" style="display: inline-block">-->
+                <!--                    <button type="submit">Delete</button>-->
+                <!--                </form>-->
+            </td>
+            <td>
+                <button type="button" class="btn btn-info">Edit</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+        <!--        <tr>-->
+        <!--            <form th:action="@{/admin}" method="post">-->
+        <!--                <td>-->
+        <!--                    # <input type="hidden" name="id">-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <label>-->
+        <!--                        <input type="text" name="firstName">-->
+        <!--                    </label>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <label>-->
+        <!--                        <input type="text" name="lastName">-->
+        <!--                    </label>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <label>-->
+        <!--                        <input type="text" name="age">-->
+        <!--                    </label>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <label>-->
+        <!--                        <input type="text" name="email">-->
+        <!--                    </label>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <label>-->
+        <!--                        <input type="password" name="rawPassword">-->
+        <!--                    </label>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div th:each="role: ${allRoles}">-->
+        <!--                        <label>-->
+        <!--                            <input type="checkbox" th:id="${role.value}"-->
+        <!--                                   name="roles" th:value="${role.id}">-->
+        <!--                        </label>-->
+        <!--                        <label th:for="${role.value}" th:text="${role.value}"></label>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <button type="submit">Add new user</button>-->
+        <!--                </td>-->
+        <!--            </form>-->
+        <!--        </tr>-->
+    </table>
+</div>
 </body>
 </html>
