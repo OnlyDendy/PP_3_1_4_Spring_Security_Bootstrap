@@ -67,6 +67,8 @@
      background-color: #FFFFFF">
 </div>
 <!----------------------------------------------------------------------------->
+
+<!----------------------------------------------------------------------------->
 <div>
     <table class="table table-striped" style="position: fixed;
     left: 260px;
@@ -92,19 +94,18 @@
                 <ul>
                     <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
                 </ul>
-                <!--                <form th:action="@{/admin/{id}(id=${user.id})}" style="display: inline-block">-->
-                <!--                    <button type="submit">Edit</button>-->
-                <!--                </form>-->
-                <!--                <form th:action="@{/admin/{id}(id=${user.id})}" th:method="delete" style="display: inline-block">-->
-                <!--                    <button type="submit">Delete</button>-->
-                <!--                </form>-->
             </td>
             <td>
-                <button type="button" class="btn btn-info">Edit</button>
+                <form th:action="@{/admin/{id}(id=${user.id})}" >
+                    <button type="submit" class="btn btn-info">Edit</button>
+                </form>
+
             </td>
-            <td>
-                <button type="button" class="btn btn-danger">Delete</button>
-            </td>
+        <td>
+            <form th:action="@{/admin/{id}(id=${user.id})}" th:method="delete">
+                <button type="submit" class="btn btn-danger" >Delete</button>
+            </form>
+        </td>
         </tr>
         <!--        <tr>-->
         <!--            <form th:action="@{/admin}" method="post">-->
