@@ -38,120 +38,194 @@
 <div style="position: fixed;left: 240px;top: 60px">
     <p class="h1">Admin panel</p>
 </div>
-<div style="position: fixed;left: 240px;top: 122px">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" href="#!">User table</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" onclick="window.location.href = '/admin'">New User</a>
-        </li>
-    </ul>
-</div>
-<div class="alert alert-secondary" role="alert"
-     style="position: fixed;
-     left: 240px;
-     top: 160px;
-     width: 1000px;
-     height: 50px;
-     background-color: #F7F7F7">
-    <p class="h5">All users</p>
-</div>
-<!--Белая-->
 <div class="alert alert-secondary" role="alert"
      style="position: fixed;
      left: 240px;
      top: 208px;
      width: 1000px;
-     height: 270px;
+     height: 300px;
      background-color: #FFFFFF">
 </div>
 <!----------------------------------------------------------------------------->
+<!--Выпадающий список-->
+<div class="container mt-3" style="position: fixed;left: 225px;top: 80px">
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">User table</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">New User</a>
+        </li>
+    </ul>
 
-<!----------------------------------------------------------------------------->
-<div>
-    <table class="table table-striped" style="position: fixed;
-    left: 260px;
-    top: 230px;
-    width: 960px;">
-        <tr class="text-center">
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Age</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        <tr class="text-center"
-            th:each="user : ${users}">
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.lastName}"></td>
-            <td th:text="${user.age}"></td>
-            <td th:text="${user.email}"></td>
-            <td>
-                <ul>
-                    <li th:each="role : ${user.roles}" th:text="${role.value}" style="list-style-type: none"></li>
-                </ul>
-            </td>
-            <td>
-                <form th:action="@{/admin/{id}(id=${user.id})}" >
-                    <button type="submit" class="btn btn-info">Edit</button>
+    <!-- Таблица -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active"><br>
+            <div class="alert alert-secondary" role="alert"
+                 style="position: fixed;
+     left: 240px;
+     top: 160px;
+     width: 1000px;
+     height: 50px;
+     background-color: #F7F7F7">
+                <p class="h5">All users</p>
+            </div>
+            <div>
+                <table class="table table-striped" style="position: fixed;
+                left: 260px;
+                top: 230px;
+                width: 960px;">
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    <tr class="text-center"
+                        th:each="user : ${users}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td th:text="${user.age}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <ul>
+                                <li th:each="role : ${user.roles}" th:text="${role.value}"
+                                    style="list-style-type: none"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <form th:action="@{/admin/{id}(id=${user.id})}">
+                                <button type="submit" class="btn btn-info">Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/admin/{id}(id=${user.id})}" th:method="delete">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!--        <tr>-->
+                    <!--            <form th:action="@{/admin}" method="post">-->
+                    <!--                <td>-->
+                    <!--                    # <input type="hidden" name="id">-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <label>-->
+                    <!--                        <input type="text" name="firstName">-->
+                    <!--                    </label>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <label>-->
+                    <!--                        <input type="text" name="lastName">-->
+                    <!--                    </label>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <label>-->
+                    <!--                        <input type="text" name="age">-->
+                    <!--                    </label>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <label>-->
+                    <!--                        <input type="text" name="email">-->
+                    <!--                    </label>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <label>-->
+                    <!--                        <input type="password" name="rawPassword">-->
+                    <!--                    </label>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <div th:each="role: ${allRoles}">-->
+                    <!--                        <label>-->
+                    <!--                            <input type="checkbox" th:id="${role.value}"-->
+                    <!--                                   name="roles" th:value="${role.id}">-->
+                    <!--                        </label>-->
+                    <!--                        <label th:for="${role.value}" th:text="${role.value}"></label>-->
+                    <!--                    </div>-->
+                    <!--                </td>-->
+                    <!--                <td>-->
+                    <!--                    <button type="submit">Add new user</button>-->
+                    <!--                </td>-->
+                    <!--            </form>-->
+                    <!--        </tr>-->
+                </table>
+            </div>
+
+            <!--Вкладка New User-->
+        </div>
+        <div id="menu1" class="container tab-pane fade"><br>
+            <div class="alert alert-secondary" role="alert"
+                 style="position: fixed;
+                 left: 240px;
+                 top: 160px;
+                 width: 1000px;
+                 height: 50px;
+                 background-color: #F7F7F7">
+                <p class="h5">New User</p>
+            </div>
+            <!--Белая-->
+            <div class="alert alert-secondary" role="alert"
+                 style="position: fixed;
+                 left: 240px;
+                 top: 208px;
+                 width: 1000px;
+                 height: 530px;
+                 background-color: #FFFFFF">
+                <form action="/admin" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <p class="font-weight-bold text-center" for="newFirstName"
+                       style="position: fixed; left: 702px; top: 215px">First name</p>
+                    <input class="form-control" style="position: fixed; left: 600px; top: 240px; width: 300px"
+                           id="newFirstName" type="text" name="firstName">
+                    <p class="font-weight-bold text-center" for="newLastName"
+                       style="position: fixed; left: 702px; top: 290px">Last name</p>
+                    <input class="form-control" style="position: fixed; left: 600px; top: 315px; width: 300px"
+                           id="newLastName" type="text" name="lastName">
+                    <p class="font-weight-bold text-center" for="newAge"
+                       style="position: fixed; left: 720px; top: 365px">Age</p>
+                    <input class="form-control" style="position: fixed; left: 600px; top: 390px; width: 300px"
+                           id="newAge" type="number" name="age">
+                    <p class="font-weight-bold text-center" for="newEmail"
+                       style="position: fixed; left: 720px; top: 440px">Email
+                        <input class="form-control" style="position: fixed; left: 600px; top: 465px; width: 300px"
+                               id="newEmail" type="email" name="email" required>
+                    <p class="font-weight-bold text-center" for="newPassword"
+                       style="position: fixed; left: 702px; top: 515px">Password</p>
+                    <input class="form-control" style="position: fixed; left: 600px; top: 540px; width: 300px"
+                           id="newPassword" type="password" name="rawPassword">
+                    <p class="font-weight-bold text-center" for="newRoles"
+                       style="position: fixed; left: 720px; top: 590px">Role</p>
+                    <select class="form-select" style="position: fixed; left: 700px; top: 620px" id="newRoles"
+                            name="roles" multiple
+                            th:size="${#sets.size(allRoles)}"
+                            required>
+                        <option th:each="role: ${allRoles}" th:value="${role.id}"
+                                th:text="${#strings.substringAfter(role.value, 'ROLE_')}"></option>
+                    </select>
+                    <button type="submit" class="btn btn-success" style="position: fixed; left: 680px; top: 675px">Add
+                        new user
+                    </button>
                 </form>
-
-            </td>
-        <td>
-            <form th:action="@{/admin/{id}(id=${user.id})}" th:method="delete">
-                <button type="submit" class="btn btn-danger" >Delete</button>
-            </form>
-        </td>
-        </tr>
-        <!--        <tr>-->
-        <!--            <form th:action="@{/admin}" method="post">-->
-        <!--                <td>-->
-        <!--                    # <input type="hidden" name="id">-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <label>-->
-        <!--                        <input type="text" name="firstName">-->
-        <!--                    </label>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <label>-->
-        <!--                        <input type="text" name="lastName">-->
-        <!--                    </label>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <label>-->
-        <!--                        <input type="text" name="age">-->
-        <!--                    </label>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <label>-->
-        <!--                        <input type="text" name="email">-->
-        <!--                    </label>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <label>-->
-        <!--                        <input type="password" name="rawPassword">-->
-        <!--                    </label>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div th:each="role: ${allRoles}">-->
-        <!--                        <label>-->
-        <!--                            <input type="checkbox" th:id="${role.value}"-->
-        <!--                                   name="roles" th:value="${role.id}">-->
-        <!--                        </label>-->
-        <!--                        <label th:for="${role.value}" th:text="${role.value}"></label>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <button type="submit">Add new user</button>-->
-        <!--                </td>-->
-        <!--            </form>-->
-        <!--        </tr>-->
-    </table>
+            </div>
+        </div>
+    </div>
 </div>
+<!--Нужно для работы модального окна-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<!----------------------------------------->
 </body>
 </html>
