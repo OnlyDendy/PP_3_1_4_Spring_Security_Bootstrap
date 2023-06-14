@@ -15,12 +15,10 @@ public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
 
-    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping()
@@ -39,8 +37,7 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String add(User user, String rawPassword) {
-        user.setPassword(passwordEncoder.encode(rawPassword));
+    public String add(User user) {
         userService.add(user);
         return "redirect:/admin";
     }
@@ -52,8 +49,7 @@ public class AdminController {
     }
 
     @PutMapping("/{id}")
-    public String update(User user, String rawPassword) {
-        user.setPassword(passwordEncoder.encode(rawPassword));
+    public String update(User user) {
         userService.update(user);
         return "redirect:/admin";
     }

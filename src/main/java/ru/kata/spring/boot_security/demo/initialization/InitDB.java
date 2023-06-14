@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.initialization;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
@@ -23,7 +24,8 @@ public class InitDB {
     }
 
     @PostConstruct
-    private void fillDb() {
+    @Transactional
+    public void fillDb() {
 
         Role roleAdmin = new Role("ROLE_ADMIN");
         Role roleUser = new Role("ROLE_USER");
