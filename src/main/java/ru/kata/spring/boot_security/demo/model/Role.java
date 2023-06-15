@@ -6,13 +6,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "role")
 public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "value")
     private String value;
 
     public Role() {
@@ -48,11 +50,11 @@ public class Role implements GrantedAuthority {
                '}';
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

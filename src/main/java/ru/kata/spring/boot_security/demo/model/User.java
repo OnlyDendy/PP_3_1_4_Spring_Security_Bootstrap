@@ -10,38 +10,38 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "user")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "first_name")
     private String firstName;
 
-//    private String firstName;
-
+    @Column(name = "last_name")
     private String lastName;
-
+    @Column(name = "age")
     private int age;
-
+    @Column(name = "email")
     private String email;
-
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles = new HashSet<>();
 
     public User() {
 
     }
 
-    public User(String firstName/*, String firstName*/, String lastName, int age, String email, String password) {
+    public User(String firstName, String lastName, int age, String email, String password) {
         this.firstName = firstName;
-//        this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
@@ -94,11 +94,10 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-               "id=" + id +
-//               ", userName='" + firstName + '\'' +
-               ", firstName='" + firstName + '\'' +
-               ", lastName='" + lastName + '\'' +
-               '}';
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 
     public void addRole(Role role) {
@@ -116,14 +115,6 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
-
-//    public String getUserName() {
-//        return userName;
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
 
     public String getFirstName() {
         return firstName;
