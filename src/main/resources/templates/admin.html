@@ -102,7 +102,8 @@
                             </ul>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#EditModal"
+                                    th:data-target="${'#EditModal'+ user.getId()}">
                                 Edit
                             </button>
                         </td>
@@ -174,8 +175,72 @@
     </div>
 </div>
 
-
-<!--<div class="modal fade" id="userEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">-->
+<div class="modal fade" th:id="${'EditModal'+ user.getId()}"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" modal-dialog-centered>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit user</h5>
+                <button type="button" class="btn-close" data-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <form th:action="@{/admin/{id}}"
+                  th:object="${user}" th:method="PUT">
+                <div class="modal-body col-md text-center">
+                    <br>
+                    <label for="id"><b>ID</b></label>
+                    <input th:name="id" th:type="text" class="form-control"
+                           id="id" th:value="*{id}" disabled/>
+                    <br>
+                    <label for="newFirstName"><b>First name</b></label>
+                    <input th:name="username" th:type="text"
+                           class="form-control" id="firstName"
+                           th:value="*{firstName}"/>
+                    <br>
+                    <label for="newLastName"><b>Last name</b></label>
+                    <input th:name="lastName" th:type="text"
+                           class="form-control" id="lastName"
+                           th:value="*{lastName}"/>
+                    <br>
+                    <label for="newAge"><b>Age</b></label>
+                    <input th:name="age" th:type="number"
+                           class="form-control" id="age"
+                           th:value="*{age}"/>
+                    <br>
+                    <label for="newEmail"><b>email</b></label>
+                    <input th:name="age" th:type="text"
+                           class="form-control" id="email"
+                           th:value="*{email}"/>
+                    <br>
+                    <label for="newPassword"><b>Password</b></label>
+                    <input th:name="password" type="password"
+                           class="form-control" id="password"/>
+                    <br>
+                    <label for="newRoles"><b>Role</b></label>
+                    <select class="form-control" id ="roles"
+                            name="roles"
+                            multiple="multiple">
+                        <option th:each="role : ${allRoles}"
+                                th:selected="${role.getValue()}"
+                                th:value="${role.getId()}"
+                                th:text="${role.getValue()}">Role name
+                        </option>
+                    </select>
+                    <br><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">-->
 <!--    <div class="modal-dialog">-->
 <!--        <div class="modal-content">-->
 <!--            <div class="modal-header">-->
@@ -206,12 +271,10 @@
 <!--                    </form>-->
 <!--                </div>-->
 <!--            </div>-->
-
 <!--            <div class="modal-footer">-->
 <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
 <!--                <button type="submit" form="editForm" class="btn btn-primary">Edit</button>-->
 <!--            </div>-->
-
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
