@@ -9,7 +9,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     private final UserService userService;
@@ -41,7 +41,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}")
     public String delete(@PathVariable Long id) {
         userService.removeById(id);
         return "redirect:/admin";

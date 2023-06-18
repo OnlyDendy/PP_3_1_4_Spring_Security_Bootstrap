@@ -120,19 +120,19 @@
                                     </div>
                                     <div class="modal-body">
                                         <form th:action="@{/admin/{id}(id=${user.getId()})}"
-                                              th:object="${user}" th:method="put">
+                                              th:object="${user}" th:method="PUT">
                                             <div class="modal-body col-md text-center">
                                                 <br>
                                                 <label for="id0"><b>ID</b></label>
                                                 <input th:name="id" th:type="text" class="form-control"
                                                        id="id0" th:value="${user.id}" disabled/>
                                                 <br>
-                                                <label for="firstName"><b>Name</b></label>
-                                                <input th:name="username" th:type="text"
+                                                <label for="firstName"><b>firstName</b></label>
+                                                <input th:name="firstName" th:type="text"
                                                        class="form-control" id="firstName"
                                                        th:value="${user.getFirstName()}"/>
                                                 <br>
-                                                <label for="lastName"><b>Surname</b></label>
+                                                <label for="lastName"><b>lastName</b></label>
                                                 <input th:name="lastName" th:type="text"
                                                        class="form-control" id="lastName"
                                                        th:value="${user.getLastName()}"/>
@@ -148,7 +148,7 @@
                                                        th:value="${user.getEmail()}"/>
                                                 <br>
                                                 <label for="password0"><b>Password</b></label>
-                                                <input th:name="password" type="text"
+                                                <input th:name="password" type="password"
                                                        class="form-control" id="password0"
                                                        th:value="${user.getPassword()}"/>
                                                 <br>
@@ -165,9 +165,10 @@
                                                 <br><br>
                                             </div>
                                             <div class="modal-footer">
+
+                                                <button type="submit" class="btn btn-primary">Edit</button>
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                                 </button>
-                                                <button type="submit" class="btn btn-primary">Edit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -176,10 +177,10 @@
                         </div>
                         <td>
                             <a type="button" class="btn  btn-danger" data-toggle="modal"
-                               data-target="#deleteUser"
-                               th:data-target="${'#deleteUser'+user.getId()}">Delete</a>
+                               data-target="#DELETE"
+                               th:data-target="${'#DELETE'+user.getId()}">Delete</a>
                         </td>
-                        <div class="modal fade" th:id="${'deleteUser'+user.getId()}"
+                        <div class="modal fade" th:id="${'DELETE'+user.getId()}"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -193,14 +194,14 @@
                                         </button>
                                     </div>
                                     <form class="modal-body col-md text-center"
-                                          th:action="@{/admin/(id=${user.getId()})}"
+                                          th:action="@{/admin/{id}(id=${user.getId()})}"
                                           th:method="DELETE">
                                         <div class="modal-body col-md">
                                             <label for="id"><b>ID</b></label>
                                             <input th:name="id" th:type="text" class="form-control"
                                                    id="id" th:value="${user.getId()}" disabled/>
                                             <br>
-                                            <label for="name1"><b>Name</b></label>
+                                            <label for="name1"><b>firstName</b></label>
                                             <input th:name="name" th:type="text"
                                                    class="form-control"
                                                    id="name1" th:value="${user.getFirstName()}" disabled/>
